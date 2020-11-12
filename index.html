@@ -11,30 +11,10 @@
       {"name":"waterfall","coords":"1,388,667,487", "userPrompt":"Click the waterfall display."},
     ]
 
-    var score = 0;
-
-    // Countdown timer
-    var start = new Date();
-    var countDownDate = start.getTime() + 30*1000;
-    var isRunning = 0;
-    var x = setInterval(function() {
-      isRunning = 1;
-      var now = new Date().getTime();
-      var seconds = Math.floor((countDownDate-now)/1000);
-      document.getElementById("timer").innerHTML = "Time left: "+seconds;
-      if (countDownDate < now) {
-        clearInterval(x);
-        isRunning = 0;
-        document.getElementById("timer").innerHTML = "";
-        document.getElementById("prompt").value = "Game over! Final score: "+score;
-        document.getElementById("reloadButton").style.visibility = "visible";
-      }
-    }, 1000);
 
     // Button click callback function
     function myFunction(el) {
       if (isRunning && goal.name === el.alt) {
-        score++;
         var prevGoal = goal;
         do {
             goal = buttonData[getRndInteger(0, buttonData.length-1)];
@@ -83,7 +63,7 @@
     </div>
 </div>
 
-<p id="timer"></p>
+
 <button id="reloadButton" style="visibility: hidden;" onclick="reloadHandler();">Play again</button><br />
 </body>
 </html>
