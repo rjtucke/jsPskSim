@@ -3,12 +3,12 @@
 <head>
 <script type="text/javascript">
     var buttonData = [
-      {"name":"TUNE",   "coords":"701,22,750,43",   "userPrompt":"Press TUNE."},
-      {"name":"CQ",     "coords":"0,357,64,387",    "userPrompt":"Send CQ."},
-      {"name":"tx-pwr", "coords":"528,512,648,532", "userPrompt":"Adjust transmit power."},
-      {"name":"tx-buffer","coords":"362,221,801,356", "userPrompt":"Click the transmit buffer."},
-      {"name":"callsign-buffer","coords":"214,44,308,70", "userPrompt":"Click the callsign buffer."},
-      {"name":"waterfall","coords":"1,388,667,487", "userPrompt":"Click the waterfall display."},
+      {"name":"TUNE",   "coords":"701,22,750,43",   "callbackFunction":"defaultCallback(this)"},
+      {"name":"CQ",     "coords":"0,357,64,387",    "callbackFunction":"CQCallback(this)"},
+      {"name":"tx-pwr", "coords":"528,512,648,532", "callbackFunction":"defaultCallback(this)"},
+      {"name":"tx-buffer","coords":"362,221,801,356", "callbackFunction":"defaultCallback(this)"},
+      {"name":"callsign-buffer","coords":"214,44,308,70", "callbackFunction":"defaultCallback(this)"},
+      {"name":"waterfall","coords":"1,388,667,487", "callbackFunction":"defaultCallback(this)"},
     ]
 
 
@@ -22,7 +22,16 @@
         } while ( prevGoal.name === goal.name);
       }
     }
-    
+  
+
+    function defaultCallback(el) {
+
+    }
+
+    function CQCallback(el) {
+      document.getElementById("transmit-buffer").innerHTML = "CQ Test";
+    }
+
     // list randomizer
     function getRndInteger(min, max) {
       return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -45,20 +54,17 @@
 </head>
 <body>
 <h3>jsPsk game, v0.1 by Ross, NS7F</h3>
-<input id="prompt" style="border: none;" readOnly=true value="foo" size=100 /><br />
 <div class="container">
     <img src="flDigi.png" usemap="#imgmap">
     <map name="imgmap">
       <script>
-        var goal = buttonData[0];
-        document.getElementById("prompt").value = goal.userPrompt;
         function generateTag(entry) {
-          document.write("<area alt=\""+entry.name+"\" shape=\"rect\" coords=\""+entry.coords+"\" onclick=\"myFunction(this)\">");
+          document.write("<area alt=\""+entry.name+"\" shape=\"rect\" coords=\""+entry.coords+"\" onclick=\""+entry.callbackFunction+"\">");
         }
         buttonData.forEach(generateTag);
       </script>
     </map>
-    <div class="text-block">
+    <div class="text-block" id="transmit-buffer">
         <!-- Transmit text goes here -->
     </div>
 </div>
