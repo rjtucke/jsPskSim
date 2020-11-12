@@ -9,6 +9,8 @@
       {"name":"tx-buffer","coords":"362,221,801,356", "callbackFunction":"defaultCallback(this)"},
       {"name":"callsign-buffer","coords":"214,44,308,70", "callbackFunction":"defaultCallback(this)"},
       {"name":"waterfall","coords":"1,388,667,487", "callbackFunction":"defaultCallback(this)"},
+      {"name":"reply","coords":"65,357,128,387", "callbackFunction":"replyCallback(this)"},
+
     ]
 
 
@@ -30,6 +32,10 @@
 
     function CQCallback(el) {
       document.getElementById("transmit-buffer").innerHTML = "CQ Test";
+      document.getElementById("receive-buffer").innerHTML = "NS7F DE KD7GNO";
+    }
+      function replyCallback(el) {
+      document.getElementById("transmit-buffer").innerHTML = "KD7GNO DE NS7F 1o/AZ";
     }
 
     // list randomizer
@@ -50,6 +56,14 @@
         padding-left: 6px;
         padding-top: 3px;
     }
+    
+    .receive-block {
+        position: absolute;
+        top: 71px;
+        left: 363px;
+        padding-left: 6px;
+        padding-top: 3px;
+    }
 </style>
 </head>
 <body>
@@ -64,6 +78,9 @@
         buttonData.forEach(generateTag);
       </script>
     </map>
+    <div class="receive-block" id="receive-buffer">
+
+    </div>
     <div class="text-block" id="transmit-buffer">
         <!-- Transmit text goes here -->
     </div>
